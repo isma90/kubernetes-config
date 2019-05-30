@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-configuration
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+data:
+  ssl-ciphers: "ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-WITH-CHACHA20-POLY1305-SHA256:ECDHE-RSA-WITH-AES-128-GCM-SHA256:ECDHE-RSA-WITH-AES-256-CBC-SHA384:ECDHE-RSA-WITH-AES-128-CBC-SHA256"
+  ssl-protocols: "TLSv1 TLSv1.1 TLSv1.2"
