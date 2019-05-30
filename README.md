@@ -8,8 +8,8 @@
 Needed to use Horizontal Pod Autoscaler.
 `kubectl apply -f heapster`
 ### Prometheus and Graphana
+`kubectl apply -f prometheus`
 
-WIP
 
 
 
