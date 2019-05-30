@@ -1,8 +1,15 @@
+# Configurations you need to start a kubernetes cluster
 
-
+### Load Balancer
 `kubectl apply -f load-balancer`
+### Ingress service
+`kubectl apply -f ingress-service`
+### Heapster Monitoriong
+Needed to use Horizontal Pod Autoscaler.
+`kubectl apply -f heapster`
+### Prometheus and Graphana
 
-
+WIP
 
 
 
