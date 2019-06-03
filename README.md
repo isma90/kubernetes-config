@@ -22,7 +22,7 @@ Needed to use Horizontal Pod Autoscaler.
 
 `kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard`
 
-![dashboard](https://github.com/isma90/kubernetes-config/blob/master/resources/image/dashboard-errors.png)
+![dashboard](resources/image/dashboard-errors.png)
 
 
 ### Author
@@ -37,3 +37,8 @@ Needed to use Horizontal Pod Autoscaler.
 
 Copyright © 2017, [Ismael Leiva](https://github.com/isma90).
 Released under the [MIT License](LICENSE).
+
+
+### Credit
+
+This repository was heavily inspired by the implementation in [giantswarm/prometheus](https://github.com/giantswarm/prometheus)
