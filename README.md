@@ -35,8 +35,13 @@ To install helm-cli run `curl -L https://git.io/get_helm.sh | bash`
 
 `kubectl apply -f helm-rbac.yaml`
 
+`kubectl create serviceaccount --namespace kube-system tiller`
 
-`helm init --service-account tiller --node-selectors "beta.kubernetes.io/os"="linux"`
+`kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller`
+
+`kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'`
+
+`helm init --service-account tiller --node-selectors "beta.kubernetes.io/os"="linux" --upgrade`
 
 ### Private Ingress
 
@@ -53,13 +58,6 @@ helm install stable/nginx-ingress \
     --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
     --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux
 ```
-
-**FIX Error: no available release name found**
->kubectl create serviceaccount --namespace kube-system tiller
-
->kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
-
->kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
 
 
 ### Author
