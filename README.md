@@ -41,13 +41,13 @@ To install helm-cli run `curl -L https://git.io/get_helm.sh | bash`
 ### Private Ingress
 
 Create a namespace for the ingress resources
-`kubectl create namespace ingress-private`
+`kubectl apply -f backend-namespace.yaml`
 
 Use Helm to deploy an NGINX ingress controller
 
 ```Javascript
 helm install stable/nginx-ingress \
-    --namespace ingress-private \
+    --namespace backend \
     -f internal-ingress.yaml \
     --set controller.replicaCount=2 \
     --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
