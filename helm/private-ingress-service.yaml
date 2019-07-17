@@ -12,7 +12,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /
+          - path: /sandbox
             backend:
               serviceName: sandbox-cluster-ip-service
               servicePort: 8080
