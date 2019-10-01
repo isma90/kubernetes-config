@@ -1,5 +1,5 @@
 controller:
   service:
-    loadBalancerIP: 172.16.63.250
+    loadBalancerIP: 10.240.0.97
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: "true"
