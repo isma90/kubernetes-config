@@ -29,6 +29,41 @@ Needed to use Horizontal Pod Autoscaler.
 ![dashboard](resources/image/dashboard-errors.png)
 
 
+## Helm
+
+To install helm-cli run `curl -L https://git.io/get_helm.sh | bash`
+
+`helm init`
+
+`kubectl apply -f 2_private-ingress/helm-rbac.yaml`
+
+`kubectl create serviceaccount --namespace kube-system tiller`
+
+`kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller`
+
+`kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'`
+
+`helm init --service-account tiller --node-selectors "beta.kubernetes.io/os"="linux" --upgrade`
+
+### Private Ingress
+
+Create a namespace for the ingress resources
+`kubectl apply -f 2_private-ingress/backend-namespace.yaml`
+
+In the file `2_private-ingress/internal-ingress.yaml` you need to set the IP do you want to use.
+
+Use Helm to deploy an NGINX ingress controller
+
+```Bash
+helm install stable/nginx-ingress \
+    --namespace backend \
+    -f 2_private-ingress/internal-ingress.yaml \
+    --set controller.replicaCount=2 \
+    --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
+    --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux
+```
+
+
 ### Author
 
 **Ismael Leiva**
@@ -45,4 +80,11 @@ Released under the [MIT License](LICENSE).
 
 ### Credit
 
-This repository was heavily inspired by the implementation in [giantswarm/prometheus](https://github.com/giantswarm/prometheus)
+This repository was inspired by the implementation in [giantswarm/prometheus](https://github.com/giantswarm/prometheus)
+
+#### Bibliography
+
+* [AKS Kubernetes Helm](https://docs.microsoft.com/es-es/azure/aks/kubernetes-helm)
+* [Install Helm helm.sh](https://helm.sh/docs/using_helm/#installing-helm)
+* [Private ingress AKS](https://docs.microsoft.com/en-us/azure/aks/ingress-internal-ip)
+
