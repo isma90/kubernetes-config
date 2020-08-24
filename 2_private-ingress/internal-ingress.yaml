@@ -1,4 +1,6 @@
 controller:
+  name: "backend-ingress"
+  ingressClass: nginx-backend
   service:
     loadBalancerIP: 10.240.0.97
     annotations:
